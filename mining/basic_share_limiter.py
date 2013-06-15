@@ -81,7 +81,7 @@ class BasicShareLimiter(object):
             self.litecoin['timestamp'] = time.time()
             self.litecoin['difficulty'] = (yield Interfaces.template_registry.bitcoin_rpc.getdifficulty())
             log.debug("Updated litecoin difficulty to %s" %  (self.litecoin['difficulty']))
-        self.litecoin_diff = self.litecoin['difficulty']
+        self.litecoin_diff = self.litecoin['difficulty'] * 65536 # convert to bitcoin difficulty
 
     def submit(self, connection_ref, job_id, current_difficulty, timestamp, worker_name):
         ts = int(timestamp)
